@@ -18,7 +18,7 @@ export const loadGIFShort = () => {
 			return
 		}
 		const script = document.createElement("script");
-		script.src = "https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"
+		script.src = "https://cdn.bootcdn.net/ajax/libs/gif.js/0.2.0/gif.js"
 		script.id = "gifshort"
 		script.onload = (e) => {
 			resolve(window.GIF)
