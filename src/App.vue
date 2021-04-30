@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" v-loading="initialLoading" :element-loading-text="initialText">
 		<el-header>
 			<div class="head">ACFUN虚拟主播GIF生成器ver.0.0.1</div>
 			<div class="subhead">ACFUN前后端开源⑨课 <el-button size="mini" @click="openUrl()">点个星星支持我们</el-button>
@@ -68,6 +68,8 @@ export default {
 				top: 0
 			},
 			loading: false,
+			initialLoading: true,
+			initialText: "正在加载插件",
 			percentage: 0
 		};
 	},
@@ -93,7 +95,14 @@ export default {
 		}
 	},
 	mounted() {
-		loadGIFShort();
+		loadGIFShort()
+			.then(() => {
+				this.initialLoading = false;
+			})
+			.catch(e => {
+				console.log(e);
+				this.initialText = "加载错误，请刷新重试";
+			});
 	},
 	methods: {
 		decodeGif() {
@@ -235,7 +244,8 @@ export default {
 
 <style>
 body,
-html {
+html,
+#app {
 	margin: 0px;
 	width: 100%;
 	height: 100%;
@@ -246,7 +256,7 @@ html {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-
+	height: calc(100% - 20px);
 	padding-top: 20px;
 	color: white !important;
 }

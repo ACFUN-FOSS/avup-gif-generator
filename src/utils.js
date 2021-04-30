@@ -12,7 +12,7 @@ export const getImageSize = (url) => {
 }
 
 export const loadGIFShort = () => {
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		if (document.querySelector("#gifshort")) {
 			resolve();
 			return
@@ -22,6 +22,10 @@ export const loadGIFShort = () => {
 		script.id = "gifshort"
 		script.onload = (e) => {
 			resolve(window.GIF)
+		}
+		script.onerror = (e) => {
+			console.log(e)
+			reject();
 		}
 		document.body.appendChild(script);
 
